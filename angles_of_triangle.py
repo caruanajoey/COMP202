@@ -1,0 +1,11 @@
+def angles_of_triangle():
+    a = float(input ("Enter side 1 length"))
+    b = float(input ("Enter side 2 length"))
+    c = float(input ("Enter side 3 length"))
+    alpha=math.acos((math.pow(b,2)+math.pow(c,2)-math.pow(a,2))/(2*b*c))
+    beta=math.acos((math.pow(a,2)+math.pow(c,2)-math.pow(b,2))/(2*a*c))
+    gamma= math.acos((math.pow(a,2)+math.pow(b,2)-math.pow(c,2))/(2*a*b))
+    print ("angles are:")
+    print(alpha*180/math.pi,"degrees")
+    print(beta*180/math.pi,"degrees")
+    print(gamma*180/math.pi,"degrees")
