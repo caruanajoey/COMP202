@@ -11,9 +11,9 @@ def is_triangle():
         print ("No, there isn't a triangle with side lengths a, b and c!") 
        
 def is_special_triangle():
-    side_1 = float(input ("Enter side 1 length"))
-    side_2 = float(input ("Enter side 2 length"))
-    side_3 = float(input ("Enter side 3 length"))
+    side_1 = float(input ())
+    side_2 = float(input ())
+    side_3 = float(input ())
     if side_1==side_2==side_3 :
         print("The triangle is equilateral")
     if (side_1==side_2) or (side_2==side_3) or (side_1==side_3):
