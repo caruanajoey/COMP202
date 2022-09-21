@@ -1,5 +1,9 @@
-import math
+# Group exercise 1
+# Gr. 11D
+# Authors: Joey Caruana, Jerry Gao, Laurence Perreault, Philippe Aprahamian, Zachary Quirion-Haddine
 
+import math
+# Question 1.1
 def is_triangle():
     a = float(input ("Enter side a: "))
     b = float(input ("Enter side b: "))
@@ -8,7 +12,8 @@ def is_triangle():
         print ("Yes, there is a triangle with side lengths a, b and c!")
     else:
         print ("No, there isn't a triangle with side lengths a, b and c!") 
-       
+
+# Question 1.2
 def is_special_triangle():
     side_1 = float(input ("Enter side 1 length"))
     side_2 = float(input ("Enter side 2 length"))
@@ -22,13 +27,15 @@ def is_special_triangle():
     is_side3_hypotenuse = side_3 == math.sqrt(side_2**2+side_1**2)
     if is_side1_hypotenuse or is_side2_hypotenuse or is_side3_hypotenuse:
         print ("The triangle is right-angle")
-        
+
+# Question 1.3        
 def perimeter_of_triangle():
     a = float(input("side a: "))
     b = float(input("side b: "))
     c = float(input("side c: "))
     print(a+b+c)
-    
+
+# Question 1.4    
 def area_of_triangle():
     a = float(input("side a: "))
     b = float(input("side b: "))
@@ -36,7 +43,8 @@ def area_of_triangle():
     per = float((a + b + c)/2)
     area = (math.sqrt((per * (per-a) * (per-b) * (per-c))))
     print(area)
-    
+
+# Question 1.5    
 def angles_of_triangle():
     a = float(input ("Enter side 1 length: "))
     b = float(input ("Enter side 2 length: "))
@@ -47,18 +55,21 @@ def angles_of_triangle():
     print(alpha*180/math.pi)
     print(beta*180/math.pi)
     print(gamma*180/math.pi)
-    
+
+# Question 2.1    
 def circumscribed_circle(a, b, c): #takes three side lengths as arguments, corresponding to local parameters a, b, and c
     angle_a = math.acos((b**2+c**2-a**2)/(2*b*c)) #cosine law to solve for angle alpha
     radius = a/(math.sin(angle_a))/2 #uses given formula to solve for the circumscribed circle's radius
     print (radius)
-    
+
+# Question 2.2    
 def inscribed_circle(a, b, c): #takes three side lengths as arguments, corresponding to local parameters a, b, and c
     angle_a = math.acos((b**2+c**2-a**2)/(2*b*c)) #cosine law to solve for angle alpha
     half_perimeter = (a+b+c)/2
     radius = (half_perimeter-a)*math.tan(angle_a/2) #uses given formula to solve for the inscribed circle's radius
     print (radius)
 
+# Question 3
 def approximate_pi(n):
     theta = math.radians(360/n)
     height = ((math.cos((theta/2))))
