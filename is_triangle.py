@@ -1,3 +1,4 @@
+#Question 1.1
 def is_triangle():
     print ("Is there a triangle with side lengths a, b and c?")
     a = float (input ("Enter side a: "))
