@@ -1,3 +1,10 @@
+#group 11D
+import math
+
+def open_door():
+    return "friend"
+
+#In observatory using the telescope
 def generate_list(length,c):
     mylist=[]
     for i in range (length):
@@ -30,18 +37,26 @@ def make_constellation_in_sky(sky):
 
 def solve_equation(equation):
     
-    #extract a, b and c...
     
-    if "x^2" in str(equation):
+    equation_copy = equation.replace("=", " ")
+    equation_copy = equation_copy.replace("x^2", " ")
+    equation_copy = equation_copy.replace("x", " ")
+    equation_copy_list = equation_copy.split()
+    
+    a = int(equation_copy_list[0])
+    b = int(equation_copy_list[1])
+    c = int(equation_copy_list[2])
+    
+    if "x^2" in equation:
+        
+        d = int(equation_copy_list[3])
+        
         solution_list = []
-        solution_list.append((-b + math.sqrt(math.pow(b, 2) -2*a*c))/2*a)
-        solution_list.append((-b - math.sqrt(math.pow(b, 2) -2*a*c))/2*a)
+        solution_list.append((-b + math.sqrt(math.pow(b, 2) -4*a*(c-d)))/(2*a))
+        solution_list.append((-b - math.sqrt(math.pow(b, 2) -4*a*(c-d)))/(2*a))
         solution = max(solution_list)
         
     else:
         solution = (c - b)/a
     
     return solution
-
-
-  
