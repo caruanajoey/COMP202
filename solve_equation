@@ -21,12 +21,24 @@ def solve_equation(equation):
 #     print(d)
 
 #     print(a, b, c, d)
-    for i in range(10000000):
-        solution = a*(i**2) + b*i + c
-        if solution == d:
-#             print(i)
-            return i
+
+    if "x^2" in str(equation):
+        solution_list = []
+        solution_list.append((-b + math.sqrt(math.pow(b, 2) -4*a*c))/(2*a))
+        solution_list.append((-b - math.sqrt(math.pow(b, 2) -4*a*c))/(2*a))
+        solution = max(solution_list)
+    
+    else:
+        solution = (d - c)/b
+    
+    print (solution)
+    return solution
             
-#equation = "-83x-25=-16791"
-#equation='-80x^2+32320x-3264320=0'
-#solve_equation(equation)
+# equation = "-83x-25=-16791"
+# equationA ='-80x^2+32320x-3264320=0'
+# equationB = '-75x^2+30300x-3060300=0'
+# equationC = '-60x^2+23880x-2376060=0'
+# solve_equation(equation)
+# solve_equation(equationA)
+# solve_equation(equationB)
+# solve_equation(equationC)
