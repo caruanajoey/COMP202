@@ -27,4 +27,21 @@ def make_constellation_in_sky(sky):
         start =""
     
     return sky
+
+def solve_equation(equation):
+    
+    #extract a, b and c...
+    
+    if x^2 in str(equation):
+        solution_list = []
+        solution_list.append((-b + math.sqrt(math.pow(b, 2) -2*a*c))/2*a)
+        solution_list.append((-b - math.sqrt(math.pow(b, 2) -2*a*c))/2*a)
+        solution = max(solution_list)
+        
+    else:
+        solution = (c - b)/a
+    
+    return solution
+
+
   
