@@ -1,3 +1,4 @@
+import math
 def solve_equation(equation):
     a_index = equation.find("x^2")
     a = 0
