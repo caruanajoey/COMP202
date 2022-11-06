@@ -15,8 +15,8 @@ def solve_equation(equation):
     print(c)
 
     solution_list = []
-    solution_list.append((-b + math.sqrt(math.pow(b, 2) -2*a*c))/2*a)
-    solution_list.append((-b - math.sqrt(math.pow(b, 2) -2*a*c))/2*a)
+    solution_list.append((-b + math.sqrt(math.pow(b, 2) -2*a*(c-d)))/2*a)
+    solution_list.append((-b - math.sqrt(math.pow(b, 2) -2*a*(c-d)))/2*a)
     solution = max(solution_list)
 
     print(solution)
