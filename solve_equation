@@ -1,0 +1,26 @@
+import math
+
+def solve_equation(equation):
+    a_index = equation.find("x^2")
+    a = 0
+    if a_index != -1:
+        a = int(equation[:a_index])
+        print(a)
+        
+    b_index = equation[a_index+3:].find("x")
+    b = int(equation[a_index+3:b_index+a_index+3])
+    print(b)
+    
+    c = int(equation[a_index+3:][b_index+1:-2])
+    print(c)
+
+    solution_list = []
+    solution_list.append((-b + math.sqrt(math.pow(b, 2) -2*a*c))/2*a)
+    solution_list.append((-b - math.sqrt(math.pow(b, 2) -2*a*c))/2*a)
+    solution = max(solution_list)
+
+    print(solution)
+    return solution
+  
+equation='-80x^2+32320x-3264320=0'
+solve_equation(equation)
