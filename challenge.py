@@ -1,3 +1,9 @@
+def generate_list(length,c):
+    mylist=[]
+    for i in range (length):
+        mylist.append(c)
+    return mylist
+
 def make_constellation_in_sky(sky):
     start=""
     for row in range(len(sky)):
