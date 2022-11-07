@@ -2,6 +2,14 @@
 import math
 
 def open_door():
+    '''
+    NoneType -> str
+    This function returns the word friend
+    
+    >>> open_door()
+    'friend'
+    
+    '''
     return "friend"
 
 #In observatory using the telescope
