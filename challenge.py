@@ -36,7 +36,20 @@ def make_constellation_in_sky(sky):
     return sky
 
 def solve_equation(equation):
+    """(str) -> float
+    Takes a quadratic or linear equation as a string, and returns the solution as a float.
+    If two solutions exist, the larger is returned.
     
+    >>>solve_equation("-83x-25=-16791")
+    202.0
+    
+    >>>solve_equation("-80x^2+32320x-3264320=0")
+    202.0
+    
+    >>>solve_equation("-60x^2+23880x-2376060=0")
+    199.0
+    
+    """
     
     equation_copy = equation.replace("=", " ")
     equation_copy = equation_copy.replace("x^2", " ")
