@@ -13,19 +13,29 @@ def open_door():
     return "friend"
 
 #In observatory using the telescope
-def generate_list(length,c):
-    mylist=[]
-    for i in range (length):
-        mylist.append(c)
-    return mylist
-
 def make_constellation_in_sky(sky):
+    '''
+    (list<list<str>>)->list<list<str>>
+    Takes a sky map nested list and returns the same sky map nested list
+    with the stars ('*') characters connected using '-' character horizontally
+    and the '|' character vertically.
+    
+    >>> make_constellation_in_sky([['*', '*', '*'], ['.', '.', '.'], ['.', '*', '*']])
+    [['*', '*', '*'], ['.', '|', '|'], ['.', '*', '*']]
+    >>> make_constellation_in_sky([['.', '.', '*', '.', '.', '*', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.'], ['*', '.', '*', '.', '.', '.', '.', '*']])
+    [['.', '.', '*', '-', '-', '*', '.', '.'], ['.', '.', '|', '.', '.', '.', '.', '.'], ['*', '-', '*', '-', '-', '-', '-', '*']]
+    >>> make_constellation_in_sky([['*', '.', '*'], ['.', '.', '.'], ['*', '.', '*']])
+    [['*', '-', '*'], ['|', '.', '|'], ['*', '-', '*']]
+    '''
+    
     start=""
     for row in range(len(sky)):
         for column in range (len(sky[row])):
             if sky[row][column] == "*" and start !="":
-                sky[row][start+1:column]=generate_list(column-start-1,'-')
-                
+                mylist=[]
+                for i in range (column-start-1):
+                    mylist.append('-')
+                sky[row][start+1:column]=mylist
                 start=column
             elif sky[row][column] == "*":
                 start = column
