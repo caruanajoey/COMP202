@@ -30,7 +30,7 @@ class Chef:
 class Dish:
     """     """
     
-    def __init__(self, name, ingredients, chef, ratings=[0, 0, 0, 0]):
+    def __init__(self, name, ingredients, chef, ratings):
         """
         """
         self.name = name
@@ -51,7 +51,7 @@ class Dish:
 
 class Battle:
     """       """
-    def __init__(self, iron_chef, challenger, secret_ingredient, dishes=[], outcome=""):
+    def __init__(self, iron_chef, challenger, secret_ingredient, dishes, outcome):
         """
         """
         self.iron_chef = iron_chef
