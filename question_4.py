@@ -46,6 +46,8 @@ class Dish:
         """
         for i in range(4):
             self.ratings[i] = random.randint(1,10)
+        
+        return self.ratings
 
 class Battle:
     """       """
@@ -93,10 +95,34 @@ class KitchenStadium:
     def get_top_chef(self):
         """
         """
+        ratings = {}
+        rates = []
+        
+        for i in self.iron_chefs:
+            ratings[(i.record[0])/(i.record[0]+i.record[1]+i.record[2])] = i.name
+            rates.append((i.record[0])/(i.record[0]+i.record[1]+i.record[2]))
+        
+        for i in self.challengers:
+            ratings[(i.record[0])/(i.record[0]+i.record[1]+i.record[2])] = i.name
+            rates.append((i.record[0])/(i.record[0]+i.record[1]+i.record[2]))
+        #I don't know if there is a way to simplify this code 
+        rates.sort()
+        
+        return ratings[rates[-1]]
         
     def get_best_dishes(self):
         """
         """
+        ratings = {}
+        
+        for i in self.battles:
+            for j in i.dishes:
+                ratings[j.name] = Dish.rate_dish(j)
+        
+        for i in ratings:
+            if ratings[i] == [10,10,10,10]:
+                print(i)
+        #Difficult to get an output other than None since the probabilities of getting a rating of 10 four times are low
     
     def run_battle(self, iron_chef, challenger):
         """
