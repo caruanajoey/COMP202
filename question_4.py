@@ -158,6 +158,13 @@ class KitchenStadium:
         
     def __str__(self):
         
+        for i in self.iron_chefs:
+            print("chef: "+i.name)
+        for i in self.challengers:
+            print("challenger: "+i.name)
+        for i in self.ingredients:
+            print("ingredient: "+i)
+        print("number of battles: "+str(len(self.battles)))
 
     def get_top_chef(self):
         """
