@@ -293,6 +293,80 @@ class KitchenStadium:
     def run_battle(self, iron_chef, challenger):
         """
         """
+        
+        
+        ingredients_list = []
+        fobj_i = open("ingredients.txt", "r")
+        for line in fobj_i:
+            ingredients_list.append(line)
+        fobj_i.close()
+        
+        secret_ingredient = ingredients_list[random.randint(0, 379)]
+        
+        nouns_list = []
+        fobj_n = open("nouns.txt", "r")
+        for line in fobj_n:
+            nouns_list.append(line)
+        fobj_n.close()
+        
+        names_list = []
+        dishes_ingredients = []
+        for i in range(4):
+            names_list.append(nouns_list[random.randint(0, 499)] + secret_ingredient)
+            dish_ingredients = [secret_ingredient]
+            for i in range(3):
+                dish_ingredients.append(ingredients_list[random.randint(0, 379)])
+            dishes_ingredients.append(dish_ingredients)
+        
+#is it same 2 dish for the 2 contestant?      
+
+        #Creating 4 dishes
+        dish1 = Dish(names_list[0], dishes_ingredients[0], iron_chef)
+        dish2 = Dish(names_list[1], dishes_ingredients[1], iron_chef)
+        dish3 = Dish(names_list[2], dishes_ingredients[2], challenger)
+        dish4 = Dish(names_list[3], dishes_ingredients[3], challenger)
+    
+        dishes = [dish1, dish2, dish3, dish4]  
+        
+        #Creating the battle
+        battle_iron_vs_chal = Battle(iron_chef, challenger, secret_ingredient, dishes, outcome="")
+        
+        #Adding the battle to the list of battles
+        battles.append(battle_iron_vs_chal)
+        
+        #Concluding battle, updating chefs' record
+        if battle_iron_vs_chal.conclude() == "iron_chef":
+            record_list = list(iron_chef.record)
+            record_list[0] += 1
+            iron_chef.record = tuple(record_list)
+            
+            record_list = list(challenger.record)
+            record_list[1] += 1
+            challenger.record = tuple(record_list)
+            
+        elif battle_iron_vs_chal.conclude() == "challenger":
+            record_list = list(iron_chef.record)
+            record_list[1] += 1
+            iron_chef.record = tuple(record_list)
+            
+            record_list = list(challenger.record)
+            record_list[0] += 1
+            challenger.record = tuple(record_list)
+            
+        else:
+            record_list = list(iron_chef.record)
+            record_list[2] += 1
+            iron_chef.record = tuple(record_list)
+            
+            record_list = list(challenger.record)
+            record_list[2] += 1
+            challenger.record = tuple(record_list)
+        
+        
+        
+        
+        
+        
         ### My suggestion: I have imported two lists, one for ingredients and one for nouns in the form of "NOUN of " 
         ### so that you can concatenate it with the name of the secret ingredient. For example, the random name we give to 
         ### a dish could be "Flavour of cherry", where cherry is the secret ingredient randomly chosen, and the randomly 
