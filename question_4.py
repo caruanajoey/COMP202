@@ -30,7 +30,15 @@ class Chef:
         
     def __str__(self):
         
-        return(self.name+" has a record of "+str(self.record)+". Its speciality is "+self.cuisine+" cuisine.")
+        wins = self.record[0]
+        losses = self.record[1]
+        ties = self.record[2]
+        
+        print("name: "+self.name)
+        print("wins: "+str(wins))
+        print("losses: "+str(losses))
+        print("ties: "+str(ties))
+        print("cuisine: "+self.cuisine)
         
 class Dish:
     """ 
@@ -47,10 +55,28 @@ class Dish:
         
     def __str__(self):
         
-        return("The "+self.name+" is made with "+str(self.ingredients)+" by "+self.chef.name+". Its ratings are "+str(self.ratings)+".")
+        print("name of dish: "+self.name)
+        for i in self.ingredients:
+            print("ingredient: "+i)
+        print("chef: "+ self.chef.name)
+        print("ratings: "+ str(self.ratings))
         
     def rate_dish(self):
         """
+        (Dish)->list<int>
+        This function randomly attributes 4 notes between 1 and 10. It returns the new ratings of the dish.
+        >>>random.seed(11)
+        >>>lasagna = Dish("lasagna",[],Lydia,[0,0,0,0])
+        >>>Dish.rate_dish(lasagna)
+        [8,9,8,8]
+        >>>random.seed(15)
+        >>>lasagna = Dish("lasagna",[],Lydia,[0,0,0,0])
+        >>>Dish.rate_dish(lasagna)
+        [4,1,9,1]
+        >>>random.seed(16)
+        >>>cake = Dish("Carrot cake",[],Lydia,[0,0,0,0])
+        >>>Dish.rate_dish(cake)
+        [6,8,8,5]
         """
         for i in range(4):
             self.ratings[i] = random.randint(1,10)
@@ -63,16 +89,39 @@ class Battle:
     Attributes: iron chef, challenger, secret ingredient, dishes, outcome
     """
     def __init__(self, iron_chef, challenger, secret_ingredient, dishes, outcome=""):
-        """
-        """
+        
         self.iron_chef = iron_chef
         self.challenger = challenger
         self.secret_ingredient = secret_ingredient
         self.dishes = dishes
         self.outcome = outcome
+    
+    def __str__(self):
+        
+        print("iron chef: "+self.iron_chef.name)
+        print("challenger chef: "+self.challenger.name)
+        print("secret ingredient: "+self.secret_ingredient)
+        for i in self.dishes:
+            print("dish: "+i.name)
+        print("outcome: "+self.outcome)
 
     def conclude(self):
         """
+        (Battle)-> str
+        This functions randomly attributes 4 notes between 1 and 10 to each dish that was prepared during the battle.
+        It adds up the notes and returns the chef with the highest score. In case of a tie, it returns "tie".
+        >>> random.seed(11)
+        >>> Battle1 = Battle(Lydia,Bob,"tomato",[lasagna,pizza],"")
+        >>> Battle.conclude(Battle1)
+        'iron_chef'
+        >>> random.seed(18)
+        >>> Battle1 = Battle(Lydia,Bob,"tomato",[lasagna,pizza],"")
+        >>> Battle.conclude(Battle1)
+        'challenger'
+        >>> random.seed(78)
+        >>> Battle3 = Battle(Joe,Bob,"carrot", [sauté,salad],"")
+        >>> Battle.conclude(Battle3)
+        'challenger'
         """
         
         iron_chef_score = 0
@@ -92,6 +141,8 @@ class Battle:
             self.outcome = "tie"
         else:
             self.outcome = "challenger"
+        
+        return self.outcome
 
 class KitchenStadium:
     """ 
@@ -99,12 +150,14 @@ class KitchenStadium:
     Attributes: iron chefs, challengers, ingredients, battles
     """
     def __init__(self, iron_chefs, challengers, ingredients, battles):
-        """
-        """
+        
         self.iron_chefs = iron_chefs
         self.challengers = challengers
         self.ingredients = ingredients
         self.battles = battles
+        
+    def __str__(self):
+        
 
     def get_top_chef(self):
         """
@@ -175,6 +228,7 @@ class KitchenStadium:
         """ (KitchenStadium)->Dish
         This functions randomly attributes 4 notes between 1 and 10 to each dish that was prepared in the Kitchen Stadium.
         It returns the dish object that got 4 tens. If there isn't any, it returns None.
+        >>>random.seed(11)
         >>>Lydia = Chef("Lydia",(1,2,3),"French")
         >>>Bob = Chef("Bob",(1,2,4), "Japanese")
         >>>lasagna = Dish("lasagna",[],Lydia,[0,0,0,0])
@@ -186,6 +240,7 @@ class KitchenStadium:
         >>>kitchen = KitchenStadium([Lydia],[Bob], INGREDIENTS_LIST,[Battle1,Battle2])
         >>>KitchenStadium.get_best_dishes(kitchen)
         None
+        >>>random.seed(12)
         >>>Lydia = Chef("Lydia",(1,2,3),"French")
         >>>Bob = Chef("Bob",(1,2,4), "Japanese")
         >>>lasagna = Dish("lasagna",[],Lydia,[0,0,0,0])
@@ -200,6 +255,7 @@ class KitchenStadium:
         >>>kitchen = KitchenStadium([Lydia],[Bob],INGREDIENTS_LIST,[Battle1,Battle2,Battle3])
         >>>KitchenStadium.get_best_dishes(kitchen)
         None
+        >>>random.seed(16)
         >>>Lydia = Chef("Lydia",(1,2,3),"French")
         >>>Bob = Chef("Bob",(1,2,4), "Japanese")
         >>>lasagna = Dish("lasagna",[],Lydia,[0,0,0,0])
