@@ -17,29 +17,37 @@ open_file.close()
 
 
 class Chef:
-    """     """
+    """
+    This class represents the characteristics of a chef.
+    Attributes: name, record, cuisine
+    """
     
     def __init__(self, name, record, cuisine):
+        
         self.name = name
         self.record = record
         self.cuisine = cuisine
         
     def __str__(self):
-        return self.name
+        
+        return(self.name+" has a record of "+str(self.record)+". Its speciality is "+self.cuisine+" cuisine.")
         
 class Dish:
-    """     """
+    """ 
+    This class represents the characteristics of a dish.
+    Attributes: name, ingredients, chef, ratings
+    """
     
-    def __init__(self, name, ingredients, chef, ratings):
-        """
-        """
+    def __init__(self, name, ingredients, chef, ratings=[0,0,0,0]):
+       
         self.name = name
         self.ingredients = ingredients
         self.chef = chef
         self.ratings = ratings
         
     def __str__(self):
-        return self.name
+        
+        return("The "+self.name+" is made with "+str(self.ingredients)+" by "+self.chef.name+". Its ratings are "+str(self.ratings)+".")
         
     def rate_dish(self):
         """
@@ -50,8 +58,11 @@ class Dish:
         return self.ratings
 
 class Battle:
-    """       """
-    def __init__(self, iron_chef, challenger, secret_ingredient, dishes, outcome):
+    """  
+    This class represents the characteristics of a battle.
+    Attributes: iron chef, challenger, secret ingredient, dishes, outcome
+    """
+    def __init__(self, iron_chef, challenger, secret_ingredient, dishes, outcome=""):
         """
         """
         self.iron_chef = iron_chef
@@ -83,7 +94,10 @@ class Battle:
             self.outcome = "challenger"
 
 class KitchenStadium:
-    """      """
+    """ 
+    This class represents the characteristics of a Kitchen Stadium.
+    Attributes: iron chefs, challengers, ingredients, battles
+    """
     def __init__(self, iron_chefs, challengers, ingredients, battles):
         """
         """
@@ -94,6 +108,53 @@ class KitchenStadium:
 
     def get_top_chef(self):
         """
+        (KitchenStadium)->Chef
+        This functions returns the chef that has the best rating, meaning the ratio between the won battles and the total of battles that were played
+        by this chef.
+        >>>Lydia = Chef("Lydia",(1,2,3),"French")
+        >>>Bob = Chef("Bob",(1,2,4), "Japanese")
+        >>>lasagna = Dish("lasagna",[],Lydia,[0,0,0,0])
+        >>>pizza = Dish("pizza",[],Bob,[0,0,0,0])
+        >>>soup = Dish("soup",[],Lydia,[0,0,0,0])
+        >>>sauté = Dish("sauté",[],Bob,[0,0,0,0])
+        >>>cake = Dish("Carrot cake",[],Lydia,[0,0,0,0])
+        >>>salad = Dish("salad",[],Bob,[0,0,0,0])
+        >>>Battle1 = Battle(Lydia,Bob,"tomato",[lasagna,pizza],"")
+        >>>Battle2 = Battle(Lydia,Bob,"mushroom",[soup,sauté],"")
+        >>>Battle3 = Battle(Lydia,Bob,"carrot", [cake,salad],"")
+        >>>kitchen = KitchenStadium([Lydia],[Bob],INGREDIENTS_LIST,[Battle1,Battle2,Battle3])
+        >>>KitchenStadium.get_top_chef(kitchen)
+        Lydia
+        >>>Lydia = Chef("Lydia",(1,2,3),"French")
+        >>>Bob = Chef("Bob",(1,2,4), "Japanese")
+        >>>Joe = Chef("Joe",(4,5,6),"Italian")
+        >>>lasagna = Dish("lasagna",[],Lydia,[0,0,0,0])
+        >>>pizza = Dish("pizza",[],Bob,[0,0,0,0])
+        >>>soup = Dish("soup",[],Lydia,[0,0,0,0])
+        >>>sauté = Dish("sauté",[],Joe,[0,0,0,0])
+        >>>cake = Dish("Carrot cake",[],Lydia,[0,0,0,0])
+        >>>salad = Dish("salad",[],Bob,[0,0,0,0])
+        >>>Battle1 = Battle(Lydia,Bob,"tomato",[lasagna,pizza],"")
+        >>>Battle2 = Battle(Lydia,Joe,"mushroom",[soup,sauté],"")
+        >>>Battle3 = Battle(Joe,Bob,"carrot", [sauté,salad],"")
+        >>>kitchen = KitchenStadium([Lydia],[Bob,Joe],INGREDIENTS_LIST,[Battle1,Battle2,Battle3])
+        >>>KitchenStadium.get_top_chef(kitchen)
+        Joe 
+        >>>Lydia = Chef("Lydia",(1,2,3),"French")
+        >>>Bob = Chef("Bob",(1,2,4), "Japanese")
+        >>>Joe = Chef("Joe",(4,5,6),"Italian")
+        >>>lasagna = Dish("lasagna",[],Lydia,[0,0,0,0])
+        >>>pizza = Dish("pizza",[],Bob,[0,0,0,0])
+        >>>soup = Dish("soup",[],Lydia,[0,0,0,0])
+        >>>sauté = Dish("sauté",[],Joe,[0,0,0,0])
+        >>>cake = Dish("Carrot cake",[],Lydia,[0,0,0,0])
+        >>>salad = Dish("salad",[],Bob,[0,0,0,0])
+        >>>Battle1 = Battle(Lydia,Bob,"tomato",[lasagna,pizza],"")
+        >>>Battle2 = Battle(Lydia,Joe,"mushroom",[soup,sauté],"")
+        >>>Battle3 = Battle(Joe,Bob,"carrot", [sauté,salad],"")
+        >>>kitchen = KitchenStadium([Lydia,Joe],[Bob],INGREDIENTS_LIST,[Battle1,Battle2,Battle3])
+        >>>KitchenStadium.get_top_chef(kitchen)
+        Joe 
         """
         ratings = {}
         rates = []
@@ -111,7 +172,49 @@ class KitchenStadium:
         return ratings[rates[-1]]
         
     def get_best_dishes(self):
-        """
+        """ (KitchenStadium)->Dish
+        This functions randomly attributes 4 notes between 1 and 10 to each dish that was prepared in the Kitchen Stadium.
+        It returns the dish object that got 4 tens. If there isn't any, it returns None.
+        >>>Lydia = Chef("Lydia",(1,2,3),"French")
+        >>>Bob = Chef("Bob",(1,2,4), "Japanese")
+        >>>lasagna = Dish("lasagna",[],Lydia,[0,0,0,0])
+        >>>pizza = Dish("pizza",[],Bob,[0,0,0,0])
+        >>>soup = Dish("soup",[],Lydia,[0,0,0,0])
+        >>>sauté = Dish("sauté",[],Bob,[0,0,0,0])
+        >>>Battle1 = Battle(Lydia,Bob,"tomato",[lasagna,pizza],"")
+        >>>Battle2 = Battle(Lydia,Bob,"mushroom",[soup,sauté],"")
+        >>>kitchen = KitchenStadium([Lydia],[Bob], INGREDIENTS_LIST,[Battle1,Battle2])
+        >>>KitchenStadium.get_best_dishes(kitchen)
+        None
+        >>>Lydia = Chef("Lydia",(1,2,3),"French")
+        >>>Bob = Chef("Bob",(1,2,4), "Japanese")
+        >>>lasagna = Dish("lasagna",[],Lydia,[0,0,0,0])
+        >>>pizza = Dish("pizza",[],Bob,[0,0,0,0])
+        >>>soup = Dish("soup",[],Lydia,[0,0,0,0])
+        >>>sauté = Dish("sauté",[],Bob,[0,0,0,0])
+        >>>cake = Dish("Carrot cake",[],Lydia,[0,0,0,0])
+        >>>salad = Dish("salad",[],Bob,[0,0,0,0])
+        >>>Battle1 = Battle(Lydia,Bob,"tomato",[lasagna,pizza],"")
+        >>>Battle2 = Battle(Lydia,Bob,"mushroom",[soup,sauté],"")
+        >>>Battle3 = Battle(Lydia,Bob,"carrot", [cake,salad],"")
+        >>>kitchen = KitchenStadium([Lydia],[Bob],INGREDIENTS_LIST,[Battle1,Battle2,Battle3])
+        >>>KitchenStadium.get_best_dishes(kitchen)
+        None
+        >>>Lydia = Chef("Lydia",(1,2,3),"French")
+        >>>Bob = Chef("Bob",(1,2,4), "Japanese")
+        >>>lasagna = Dish("lasagna",[],Lydia,[0,0,0,0])
+        >>>pizza = Dish("pizza",[],Bob,[0,0,0,0])
+        >>>soup = Dish("soup",[],Lydia,[0,0,0,0])
+        >>>sauté = Dish("sauté",[],Bob,[0,0,0,0])
+        >>>cake = Dish("Carrot cake",[],Lydia,[0,0,0,0])
+        >>>salad = Dish("salad",[],Bob,[0,0,0,0])
+        >>>Battle1 = Battle(Lydia,Bob,"tomato",[lasagna,pizza],"")
+        >>>Battle2 = Battle(Lydia,Bob,"mushroom",[soup,sauté],"")
+        >>>Battle3 = Battle(Lydia,Bob,"carrot", [cake,salad],"")
+        >>>kitchen = KitchenStadium([Lydia],[Bob],INGREDIENTS_LIST,[Battle1,Battle2,Battle3])
+        >>>for i in range(1000):
+            KitchenStadium.get_best_dishes(kitchen)
+        The output was too long to show but at one point, it did print "sauté"
         """
         ratings = {}
         
