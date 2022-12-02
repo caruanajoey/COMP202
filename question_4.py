@@ -74,10 +74,11 @@ class Dish:
         >>>Dish.rate_dish(cake)
         [6,8,8,5]
         """
+        rate = []
         for i in range(4):
-            self.ratings[i] = random.randint(1,10)
+            rate.append(random.randint(1,10))
         
-        return self.ratings
+        return rate
 
 class Battle:
     """  
@@ -121,9 +122,9 @@ class Battle:
         
         iron_chef_score = 0
         challenger_score = 0
-        
+        g = 0
         for plate in self.dishes:
-            plate.rate_dish()
+            plate.ratings = plate.rate_dish()
             
             if plate.chef == self.iron_chef:
                 iron_chef_score += sum(plate.ratings)
@@ -234,7 +235,7 @@ class KitchenStadium:
                 rates.append((i.record[0])/(i.record[0]+i.record[1]+i.record[2]))
             else:
                 continue
-        
+        #I don't know if there is a way to simplify this code 
         rates.sort()
         
         return ratings[rates[-1]]
@@ -312,7 +313,7 @@ class KitchenStadium:
         names_list = []
         dishes_ingredients = []
         for i in range(4):
-            names_list.append(nouns_list[random.randint(0, 499)] + " " + secret_ingredient)
+            names_list.append(nouns_list[random.randint(0, 499)] + secret_ingredient)
             dish_ingredients = [secret_ingredient]
             dishes_number = random.randint(1,3) #Randomly chooses whether dish will have 1, 2, or 3 additional ingredients
             for i in range(dishes_number):
@@ -336,7 +337,8 @@ class KitchenStadium:
         self.battles.append(battle_iron_vs_chal)
         
         #Concluding battle, updating chefs' record
-        if battle_iron_vs_chal.conclude() == "iron_chef":
+        result = battle_iron_vs_chal.conclude()
+        if result == "iron_chef":
             record_list = list(iron_chef.record)
             record_list[0] += 1
             iron_chef.record = tuple(record_list)
@@ -345,7 +347,7 @@ class KitchenStadium:
             record_list[1] += 1
             challenger.record = tuple(record_list)
             
-        elif battle_iron_vs_chal.conclude() == "challenger":
+        elif result == "challenger":
             record_list = list(iron_chef.record)
             record_list[1] += 1
             iron_chef.record = tuple(record_list)
