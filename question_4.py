@@ -34,11 +34,7 @@ class Chef:
         losses = self.record[1]
         ties = self.record[2]
         
-        print("name: "+self.name)
-        print("wins: "+str(wins))
-        print("losses: "+str(losses))
-        print("ties: "+str(ties))
-        print("cuisine: "+self.cuisine)
+        return "Name: " + self.name + ", Wins: "+str(wins) + ", Losses: " +str(losses) + ", Ties: "+str(ties) + ", Cuisine: "+ self.cuisine
         
 class Dish:
     """ 
@@ -55,12 +51,12 @@ class Dish:
         
     def __str__(self):
         
-        print("name of dish: "+self.name)
+        temp_string = ""
         for i in self.ingredients:
-            print("ingredient: "+i)
-        print("chef: "+ self.chef.name)
-        print("ratings: "+ str(self.ratings))
+            temp_string += (i+", ")
         
+        return "Dish: " + self.name + ", Ingredients: " + temp_string + "Chef: " + self.chef.name + ", Ratings: " + str(self.ratings)
+
     def rate_dish(self):
         """
         (Dish)->list<int>
@@ -98,12 +94,11 @@ class Battle:
     
     def __str__(self):
         
-        print("iron chef: "+self.iron_chef.name)
-        print("challenger chef: "+self.challenger.name)
-        print("secret ingredient: "+self.secret_ingredient)
+        temp_string = ""
         for i in self.dishes:
-            print("dish: "+i.name)
-        print("outcome: "+self.outcome)
+            temp_string += ("\n" + str(i))
+        
+        return "Iron Chef: " + self.iron_chef.name + "\nChallenger: " + self.challenger.name + "\nSecret ingredient: " + self.secret_ingredient + "\n--Dishes-- " + temp_string + "\nOutcome: " + self.outcome
 
     def conclude(self):
         """
@@ -149,7 +144,7 @@ class KitchenStadium:
     This class represents the characteristics of a Kitchen Stadium.
     Attributes: iron chefs, challengers, ingredients, battles
     """
-    def __init__(self, iron_chefs, challengers, ingredients, battles):
+    def __init__(self, iron_chefs, challengers, ingredients, battles=[]):
         
         self.iron_chefs = iron_chefs
         self.challengers = challengers
@@ -158,13 +153,18 @@ class KitchenStadium:
         
     def __str__(self):
         
+        temp_string1 = ""
+        temp_string2 = ""
+        temp_string3 = ""
+        
         for i in self.iron_chefs:
-            print("chef: "+i.name)
+            temp_string1 += (str(i) + "\n")
         for i in self.challengers:
-            print("challenger: "+i.name)
-        for i in self.ingredients:
-            print("ingredient: "+i)
-        print("number of battles: "+str(len(self.battles)))
+            temp_string2 += (str(i) + "\n")
+        for i in range(len(self.battles)):
+            temp_string3 += ("\n#" + str(i+1) + ":\n" + (str(self.battles[i])) + "\n")
+        
+        return "---Chef Info ---\n\n--Iron Chefs--\n" + temp_string1 + "--Challengers--\n" + temp_string2 + "\n----Battles----\n" + temp_string3
 
     def get_top_chef(self):
         """
@@ -220,12 +220,20 @@ class KitchenStadium:
         rates = []
         
         for i in self.iron_chefs:
-            ratings[(i.record[0])/(i.record[0]+i.record[1]+i.record[2])] = i.name
-            rates.append((i.record[0])/(i.record[0]+i.record[1]+i.record[2]))
+            
+            if i.record[0]+i.record[1]+i.record[2] != 0:
+                ratings[(i.record[0])/(i.record[0]+i.record[1]+i.record[2])] = i.name
+                rates.append((i.record[0])/(i.record[0]+i.record[1]+i.record[2]))
+            else:
+                continue
         
         for i in self.challengers:
-            ratings[(i.record[0])/(i.record[0]+i.record[1]+i.record[2])] = i.name
-            rates.append((i.record[0])/(i.record[0]+i.record[1]+i.record[2]))
+            
+            if i.record[0]+i.record[1]+i.record[2] != 0:
+                ratings[(i.record[0])/(i.record[0]+i.record[1]+i.record[2])] = i.name
+                rates.append((i.record[0])/(i.record[0]+i.record[1]+i.record[2]))
+            else:
+                continue
         #I don't know if there is a way to simplify this code 
         rates.sort()
         
@@ -283,31 +291,23 @@ class KitchenStadium:
         
         for i in self.battles:
             for j in i.dishes:
-                ratings[j.name] = Dish.rate_dish(j)
+                ratings[j.name] = j.ratings
         
         for i in ratings:
             if ratings[i] == [10,10,10,10]:
-                print(i)
+                return i
+            
         #Difficult to get an output other than None since the probabilities of getting a rating of 10 four times are low
     
     def run_battle(self, iron_chef, challenger):
         """
         """
         
-        
-        ingredients_list = []
-        fobj_i = open("ingredients.txt", "r")
-        for line in fobj_i:
-            ingredients_list.append(line)
-        fobj_i.close()
+        ingredients_list = self.ingredients
         
         secret_ingredient = ingredients_list[random.randint(0, 379)]
         
-        nouns_list = []
-        fobj_n = open("nouns.txt", "r")
-        for line in fobj_n:
-            nouns_list.append(line)
-        fobj_n.close()
+        nouns_list = NOUNS_LIST
         
         names_list = []
         dishes_ingredients = []
@@ -326,13 +326,13 @@ class KitchenStadium:
         dish3 = Dish(names_list[2], dishes_ingredients[2], challenger)
         dish4 = Dish(names_list[3], dishes_ingredients[3], challenger)
     
-        dishes = [dish1, dish2, dish3, dish4]  
+        dishes = [dish1, dish2, dish3, dish4]
         
         #Creating the battle
         battle_iron_vs_chal = Battle(iron_chef, challenger, secret_ingredient, dishes, outcome="")
         
         #Adding the battle to the list of battles
-        battles.append(battle_iron_vs_chal)
+        self.battles.append(battle_iron_vs_chal)
         
         #Concluding battle, updating chefs' record
         if battle_iron_vs_chal.conclude() == "iron_chef":
@@ -361,61 +361,52 @@ class KitchenStadium:
             record_list = list(challenger.record)
             record_list[2] += 1
             challenger.record = tuple(record_list)
+
+
+### Game Engine ###
+
+classlist = ['Alina Lu', 'Audrey-Anne Beaudry', 'Domenic Continelli', 'Emile Vienneau', 'Eva Koall', 'Giuseppe Caruana', 'Isabelle Ho', 'Isbat-ul Islam', 'Jeffrey Kauv Li', 'Jerry Gao', 'Laura Waters', 'Laurence Perreault', 'Marlo Anzarut', 'Natasha Bejjani', 'Patrick Wilson', 'Philippe Aprahamian', 'Rachel Shi', 'Sophie Courville', 'Visali Kandiah', 'Zachary Quirion-Haddine']
+cuisines = ['Mexican Cuisine', 'Japanese Cuisine', 'Cambodian Cuisine', 'Italian Cuisine', 'Argentinian Cuisine', 'Ethiopian Food', 'Canadian Food', 'Guatemalan Cuisine', 'Taiwanese Cuisine', 'Seafood', 'Israeli Cuisine', 'Brazilian Food', 'Turkish Cuisine', 'Pakistani Cuisine', 'United Kingdom Cuisine', 'Portuguese Food', 'Vietnamese Food', 'South African Cuisine', 'Chilean Cuisine', 'Hawaiian Food', 'Russian Food']
+challengers = []
+for i in range(len(classlist)):
+    challengers.append(Chef(classlist[i], (0, 0, 0), cuisines[random.randint(0, len(cuisines)-1)]))
+
+teachers = ['Hamza Javed', 'Jonathan Campbell']
+iron_chefs = []
+for i in range(len(teachers)):
+    iron_chefs.append(Chef(teachers[i], (0, 0, 0), cuisines[random.randint(0, len(cuisines)-1)]))
+
+
+
+group_11_battle = KitchenStadium(iron_chefs, challengers, INGREDIENTS_LIST)
+
+iron_chef = group_11_battle.iron_chefs[random.randint(0, len(group_11_battle.iron_chefs)-1)]
+
+
+command = ""
+while command != "end":
+    challenger = group_11_battle.challengers[random.randint(0, len(group_11_battle.challengers)-1)]
+    if command == "best dishes":
+        print(group_11_battle.get_best_dishes())
+    elif command == "top chef":
+        print(group_11_battle.get_top_chef())
+    elif command == "chef info":
+        temp_string1 = ""
+        temp_string2 = ""
         
+        for i in group_11_battle.iron_chefs:
+            temp_string1 += (str(i) + "\n")
+        for i in group_11_battle.challengers:
+            temp_string2 += (str(i) + "\n")
         
-        
-        
-        
-        
-        ### My suggestion: I have imported two lists, one for ingredients and one for nouns in the form of "NOUN of " 
-        ### so that you can concatenate it with the name of the secret ingredient. For example, the random name we give to 
-        ### a dish could be "Flavour of cherry", where cherry is the secret ingredient randomly chosen, and the randomly 
-        ### chosen noun is "Flavour of". Just remember to not have the same name repeat.
-        ### Do print(NOUNS_LIST) and print(INGREDIENTS_LIST) to see the two lists I've imported.
-        ### >>> print(NOUNS_LIST[0] + INGREDIENTS_LIST[0])
-        ### >>> "Piety of cocoa powder"
-        ###
-        ### >>> print(NOUNS_LIST[112] + INGREDIENTS_LIST[68])
-        ### >>> "Judgement of dandelion"
-
-
-
-
-
-
-
-
-
-
-
-
-### Testing ###
-
-# iron = Chef("Alex", (1, 2, 3), "American")
-# chal = Chef("Steph", (1, 2, 3), "English")
-# 
-# CHEFS = iron, chal
-# dish_list = []
-# 
-# for j in range(10):
-#     choose_chef = CHEFS[random.randint(0,1)] #Issue using random.choices to directly choose from CHEFS tuple
-# 
-#     choose_dish = Dish("test", ["ingredient_1", "ingredient_2"], choose_chef)
-#     dish_list.append(choose_dish)
-# 
-# while True:
-#     test_Battle = Battle(iron, chal, "potatoes", dish_list)
-#     test_Battle.conclude()
-#     print(test_Battle.outcome)
-#     if test_Battle.outcome == "tie":
-#         break
-# 
-
-
-# new_Dish = Dish("Poutine", ["ingredient_1", "ingredient_2"], new_Chef)
-# new_Dish.rate_dish()
-# print(new_Dish.ratings)
-
+        print("---Chef Info---\n\n--Iron Chefs--\n" + temp_string1 + "--Challengers--\n" + temp_string2)
+    elif command == "":
+        group_11_battle.run_battle(iron_chef, challenger)
+        print(group_11_battle)
+    else:
+        print("Invalid command; Commands: \'best dishes\', \'top chef\', or press Enter to continue battles.")
+    command = input("Command: ")
+    print("\n")
 
 
 
