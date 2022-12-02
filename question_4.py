@@ -380,11 +380,9 @@ for i in range(len(teachers)):
 
 group_11_battle = KitchenStadium(iron_chefs, challengers, INGREDIENTS_LIST)
 
-iron_chef = group_11_battle.iron_chefs[random.randint(0, len(group_11_battle.iron_chefs)-1)]
-
-
 command = ""
 while command != "end":
+    iron_chef = group_11_battle.iron_chefs[random.randint(0, len(group_11_battle.iron_chefs)-1)]
     challenger = group_11_battle.challengers[random.randint(0, len(group_11_battle.challengers)-1)]
     if command == "best dishes":
         print(group_11_battle.get_best_dishes())
