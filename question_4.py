@@ -34,7 +34,7 @@ class Chef:
         losses = self.record[1]
         ties = self.record[2]
         
-        return "Name: " + self.name + ", Wins: "+str(wins) + ", Losses: " +str(losses) + ", Ties: "+str(ties) + ", Cuisine: "+ self.cuisine
+        return "Name: " + self.name + "\n\tWins: "+str(wins) + "\n\tLosses: " +str(losses) + "\n\tTies: "+str(ties) + "\n\tCuisine: "+ self.cuisine
         
 class Dish:
     """ 
@@ -55,7 +55,7 @@ class Dish:
         for i in self.ingredients:
             temp_string += (i+", ")
         
-        return "Dish: " + self.name + ", Ingredients: " + temp_string + "Chef: " + self.chef.name + ", Ratings: " + str(self.ratings)
+        return "Chef: " + self.chef.name + "\n\tDish: " + self.name + "\n\tIngredients: " + temp_string + "\n\tRatings: " + str(self.ratings)
 
     def rate_dish(self):
         """
