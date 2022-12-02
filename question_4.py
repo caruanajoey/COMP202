@@ -55,7 +55,7 @@ class Dish:
         for i in self.ingredients:
             temp_string += (i+", ")
         
-        return "Chef: " + self.chef.name + "\n\tDish: " + self.name + "\n\tIngredients: " + temp_string + "\n\tRatings: " + str(self.ratings)
+        return "Chef: " + self.chef.name + "\n\tDish: " + self.name + "\n\tIngredients: " + temp_string[:-2] + "\n\tRatings: " + str(self.ratings)
 
     def rate_dish(self):
         """
@@ -314,7 +314,8 @@ class KitchenStadium:
         for i in range(4):
             names_list.append(nouns_list[random.randint(0, 499)] + secret_ingredient)
             dish_ingredients = [secret_ingredient]
-            for i in range(3):
+            dishes_number = random.randint(1,3) #Randomly chooses whether dish will have 1, 2, or 3 additional ingredients
+            for i in range(dishes_number):
                 dish_ingredients.append(ingredients_list[random.randint(0, 379)])
             dishes_ingredients.append(dish_ingredients)
         
@@ -385,9 +386,9 @@ while command != "end":
     iron_chef = group_11_battle.iron_chefs[random.randint(0, len(group_11_battle.iron_chefs)-1)]
     challenger = group_11_battle.challengers[random.randint(0, len(group_11_battle.challengers)-1)]
     if command == "best dishes":
-        print(group_11_battle.get_best_dishes())
+        print("Best dishes: " + str(group_11_battle.get_best_dishes()) + "\n")
     elif command == "top chef":
-        print(group_11_battle.get_top_chef())
+        print("Top chef: " + group_11_battle.get_top_chef() + "\n")
     elif command == "chef info":
         temp_string1 = ""
         temp_string2 = ""
