@@ -312,7 +312,7 @@ class KitchenStadium:
         names_list = []
         dishes_ingredients = []
         for i in range(4):
-            names_list.append(nouns_list[random.randint(0, 499)] + secret_ingredient)
+            names_list.append(nouns_list[random.randint(0, 499)] + " " + secret_ingredient)
             dish_ingredients = [secret_ingredient]
             dishes_number = random.randint(1,3) #Randomly chooses whether dish will have 1, 2, or 3 additional ingredients
             for i in range(dishes_number):
