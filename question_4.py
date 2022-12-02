@@ -162,7 +162,7 @@ class KitchenStadium:
         for i in self.challengers:
             temp_string2 += (str(i) + "\n")
         for i in range(len(self.battles)):
-            temp_string3 += ("\n#" + str(i+1) + ":\n" + (str(self.battles[i])) + "\n")
+            temp_string3 += ("\nRound #" + str(i+1) + ":\n" + (str(self.battles[i])) + "\n")
         
         return "---Chef Info ---\n\n--Iron Chefs--\n" + temp_string1 + "--Challengers--\n" + temp_string2 + "\n----Battles----\n" + temp_string3
 
