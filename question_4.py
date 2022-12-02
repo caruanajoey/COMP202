@@ -404,7 +404,7 @@ while command != "end":
         group_11_battle.run_battle(iron_chef, challenger)
         print(group_11_battle)
     else:
-        print("Invalid command; Commands: \'best dishes\', \'top chef\', or press Enter to continue battles.")
+        print("Invalid command; Commands: \'best dishes\', \'top chef\', \'chef info\', or press Enter to continue battles.")
     command = input("Command: ")
     print("\n")
 
