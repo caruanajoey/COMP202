@@ -74,6 +74,10 @@ class Dish:
         >>>Dish.rate_dish(cake)
         [6,8,8,5]
         """
+        
+#         for i in range(4):
+#             self.ratings[i] = random.randint(1,10)
+        
         rate = []
         for i in range(4):
             rate.append(random.randint(1,10))
@@ -122,9 +126,10 @@ class Battle:
         
         iron_chef_score = 0
         challenger_score = 0
-        g = 0
+        
         for plate in self.dishes:
             plate.ratings = plate.rate_dish()
+#             plate.rate_dish()
             
             if plate.chef == self.iron_chef:
                 iron_chef_score += sum(plate.ratings)
