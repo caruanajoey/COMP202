@@ -234,7 +234,7 @@ class KitchenStadium:
                 rates.append((i.record[0])/(i.record[0]+i.record[1]+i.record[2]))
             else:
                 continue
-        #I don't know if there is a way to simplify this code 
+        
         rates.sort()
         
         return ratings[rates[-1]]
