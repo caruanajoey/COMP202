@@ -34,7 +34,7 @@ class Chef:
         losses = self.record[1]
         ties = self.record[2]
         
-        return "Name: " + self.name + "\n\tWins: "+str(wins) + "\n\tLosses: " +str(losses) + "\n\tTies: "+str(ties) + "\n\tCuisine: "+ self.cuisine
+        return "Name: " + self.name + "\n\tWins: "+ str(wins) + "\n\tLosses: " + str(losses) + "\n\tTies: "+ str(ties) + "\n\tCuisine: "+ self.cuisine
         
 class Dish:
     """ 
