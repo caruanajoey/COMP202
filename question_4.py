@@ -342,7 +342,8 @@ class KitchenStadium:
         self.battles.append(battle_iron_vs_chal)
         
         #Concluding battle, updating chefs' record
-        result = battle_iron_vs_chal.conclude()
+        #result = battle_iron_vs_chal.conclude()
+        result = Battle.conclude(battle_iron_vs_chal)
         if result == "iron_chef":
             record_list = list(iron_chef.record)
             record_list[0] += 1
